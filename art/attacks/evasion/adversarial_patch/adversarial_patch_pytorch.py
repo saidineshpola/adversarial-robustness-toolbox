@@ -302,11 +302,9 @@ class AdversarialPatchPyTorch(EvasionAttack):
         self.image_shape = images.shape[1:]
 
         smallest_image_edge = np.minimum(self.image_shape[self.i_h], self.image_shape[self.i_w])
-        _size=(smallest_image_edge, smallest_image_edge),
-        _size = tuple(int(x) for x in _size)
         image_mask = torchvision.transforms.functional.resize(
             img=image_mask,
-            size=_size,
+            size=(int(smallest_image_edge), int(smallest_image_edge)),
             interpolation=2,
         )
 
@@ -334,7 +332,7 @@ class AdversarialPatchPyTorch(EvasionAttack):
 
         padded_patch = torchvision.transforms.functional.resize(
             img=padded_patch,
-            size=_size,
+            size=(int(smallest_image_edge), int(smallest_image_edge)),
             interpolation=2,
         )
 
